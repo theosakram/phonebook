@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
+    "apollo3-cache-persist": "^0.14.1",
     "graphql": "^16.8.1",
     "immer": "^10.0.3",
     "next": "13.5.6",
