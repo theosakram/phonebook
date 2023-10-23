@@ -49,7 +49,6 @@ export const ContactListContainer = () => {
             location="Someplace, Indonesia"
           />
         ))}
-        F
       </div>
     </div>
   );

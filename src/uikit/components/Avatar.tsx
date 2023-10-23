@@ -10,7 +10,8 @@ export type AvatarProps = {
 export const Avatar = (props: AvatarProps) => {
   return (
     <div className={circle({ size: "3rem", overflow: "hidden" })}>
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={props.src || "https://bit.ly/sage-adebayo"}
         alt="avatar"
         width={props.w || 100}
