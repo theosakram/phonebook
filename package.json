@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "dev": "rm -rf .next && next dev",
-    "build": "next build",
+    "build": "graphql-codegen && next build",
     "start": "next start",
     "lint": "next lint",
     "gen": "graphql-codegen"
