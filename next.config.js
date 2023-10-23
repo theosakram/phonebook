@@ -4,6 +4,18 @@ const nextConfig = {
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "via.placeholder.com",
+      },
+      {
+        protocol: "https",
+        hostname: "bit.ly",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

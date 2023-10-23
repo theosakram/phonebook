@@ -5,16 +5,16 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { useShallow } from "zustand/react/shallow";
+import { useRouter } from "next/router";
 
 type ContactState = {
   favorites: GetContactListQuery["contact"];
-  offset: number;
+  friends: GetContactListQuery["contact"];
 };
 
 type ContactAction = {
   addFavorite: (data: GetContactListQuery["contact"][0]) => void;
-  nextPage: () => void;
-  prevPage: () => void;
+  getFavouritesId: () => Array<number>;
 };
 
 const useContactState = create<ContactState & ContactAction>()(
@@ -22,34 +22,41 @@ const useContactState = create<ContactState & ContactAction>()(
     // immer takes away the immutable "boilerplate"
     // and makes state management looks like mutable
     // while still keeping the state immutable
-    immer((set) => ({
+    immer((set, get) => ({
       favorites: [],
+      friends: [],
       addFavorite: (data) => {
         set((state) => {
           state.favorites.push(data);
         });
       },
-      nextPage: () => {
-        set((state) => (state.offset += 1));
+      getFavouritesId: () => {
+        const { favorites, friends } = get();
+
+        return [...favorites, ...friends].map((f) => f.id);
       },
-      prevPage: () => {
-        set((state) => (state.offset -= 1));
-      },
-      offset: 0,
     })),
     { name: "contactStore" }
   )
 );
 
 export const useContactStore = () => {
-  const [favorites, addFavorite, offset] = useContactState(
-    useShallow((state) => [state.favorites, state.addFavorite, state.offset])
+  const router = useRouter();
+  const [favorites, addFavorite, getFavouritesId] = useContactState(
+    useShallow((state) => [
+      state.favorites,
+      state.addFavorite,
+      state.getFavouritesId,
+    ])
   );
 
   const response = useQuery(GET_CONTACT_LIST, {
     variables: {
       limit: 10,
-      offset,
+      offset: +(router.query.page || 0),
+      where: {
+        id: { _nin: getFavouritesId() },
+      },
     },
   });
 

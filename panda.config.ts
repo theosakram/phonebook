@@ -6,7 +6,7 @@ export default defineConfig({
 
   // Where to look for your css declarations
   include: [
-    "./src/components/**/*.{ts,tsx,js,jsx}",
+    "./src/uikit/**/*.{ts,tsx,js,jsx}",
     "./src/pages/**/*.{ts,tsx,js,jsx}",
   ],
 

@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import { persistCache, LocalStorageWrapper } from "apollo3-cache-persist";
 import { getEnv } from "@/shared/getEnv";
+import { Loader } from "@/uikit/components/Loader";
 
 const {
   publicRuntimeConfig: { baseURL },
@@ -39,7 +40,7 @@ export const QueryProviders = (props: PropsWithChildren) => {
   }, []);
 
   if (!client) {
-    return <h2>Initializing app...</h2>;
+    return <Loader message="Initializing app..." />;
   }
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;

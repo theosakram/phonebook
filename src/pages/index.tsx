@@ -1,7 +1,4 @@
 import dynamic from "next/dynamic";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const ContactListContainer = dynamic(
   () =>
