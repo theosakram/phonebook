@@ -35,4 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 # panda-css
-styled-system
+/styled-system
+
+# codegen
+/src/__generated__
